@@ -1,0 +1,64 @@
+/* ===== CARD ADDITION ===== */
+.card-addition {
+  width: 100%;
+  background-color: transparent;  /* ← Matches parent */
+  border-radius: 8px;
+  padding: 4px 0;
+  box-sizing: border-box;
+}
+
+.card-addition-input {
+  width: 100%;
+  background-color: transparent; 
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  height: 40px;
+  outline: none;
+  padding: 0 12px;
+  color: white;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.card-addition-input:focus {
+  border-color: white;
+}
+
+.card-addition-input::placeholder {
+  color: #6b7280;
+}
+
+.card-addition-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+.card-addition-buttons button {
+  background-color: #3b82f6;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.card-addition-buttons button:hover {
+  background-color: #2563eb;
+}
+
+.card-addition-buttons svg {
+  color: #9ca3af;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.card-addition-buttons svg:hover {
+  color: white;
+}

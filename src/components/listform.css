@@ -1,0 +1,43 @@
+.form-cover{
+  background-color: rgb(14, 17, 26);
+  width: 313px;
+  border-radius: 8px;
+  padding-bottom: 5px;
+  box-sizing: border-box;
+}
+.inside-cover{
+  margin: 10px;
+  margin-right: 15px;
+}
+.input-box{
+  width: 100%;
+  background-color: rgba(21, 13, 73, 0.849);
+  border-radius: 8px;
+  border: 1px solid rgb(68, 68, 240);
+  height: 30px;
+  outline: none;
+  margin-top: 10px;
+  color: white;
+  font-weight: bold;
+}
+.add-list{
+  background-color: rgb(37, 133, 223);
+  font-weight: 600;
+  padding: 10px;
+  width: 100px;
+  margin-right: 10px;
+  border-radius: 8px;
+  border: none;
+}
+.add-buttons{
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+.x-close{
+  color: white;
+}
+.x-close:hover{
+  cursor: pointer;
+}

@@ -1,0 +1,148 @@
+/* ===== CONTAINER ===== */
+.help {
+  background-color: rgb(41, 41, 41);
+  position: absolute;
+  top: 50px;
+  right: 80px;
+  width: 320px;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  z-index: 300;
+  overflow: hidden;
+}
+
+.outer-help{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;          
+  height: 100vh;   
+  background-color: rgba(0, 0, 0, 0.5);  
+  z-index: 999;
+}
+
+.inner-help {
+  margin: 12px 16px 16px 16px;
+}
+
+/* ===== HEADER ===== */
+.help-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 16px;
+}
+
+.help-header span {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.help-close {
+  cursor: pointer;
+  color: #9ca3af;
+  transition: color 0.2s;
+}
+
+.help-close:hover {
+  color: #ffffff;
+}
+
+/* ===== MAIN MESSAGE ===== */
+.help-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 12px 0 16px 0;
+}
+
+.help-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(59, 130, 246, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.help-main-icon {
+  font-size: 24px;
+  color: #3b82f6;
+}
+
+.help-main-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: #e5e7eb;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.help-highlight {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+/* ===== TIP LINK ===== */
+.help-tip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background-color: rgba(255, 255, 255, 0.04);
+  border-radius: 6px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.help-tip:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.help-tip-icon {
+  font-size: 18px;
+  color: #eab308;
+}
+
+.help-tip span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #d1d5db;
+}
+
+/* ===== FOOTER LINKS ===== */
+.help-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.help-link {
+  font-size: 12px;
+  color: #9ca3af;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.help-link:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .help {
+    width: 280px;
+    right: 20px;
+    top: 50px;
+  }
+}

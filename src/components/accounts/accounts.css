@@ -1,0 +1,135 @@
+/* ===== CONTAINER ===== */
+.accounts {
+  background-color: rgb(41, 41, 41);
+  position: absolute;
+  top: 50px;
+  right: 80px;
+  width: 320px;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  z-index: 300;
+  overflow: hidden;
+}
+
+.outer-accounts{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;          
+  height: 100vh;   
+  background-color: rgba(0, 0, 0, 0.5);  
+  z-index: 999;
+}
+
+.inner-accounts {
+  margin: 12px 16px 16px 16px;
+}
+
+/* ===== HEADER ===== */
+.accounts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 14px;
+}
+
+.accounts-header span {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  letter-spacing: 0.8px;
+}
+
+.accounts-close {
+  cursor: pointer;
+  color: #9ca3af;
+  transition: color 0.2s;
+}
+
+.accounts-close:hover {
+  color: #ffffff;
+}
+
+/* ===== USER PROFILE ===== */
+.accounts-profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.accounts-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.avatar-icon {
+  font-size: 22px;
+  color: #ffffff;
+}
+
+.accounts-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.accounts-username {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.accounts-email {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+/* ===== OPTIONS ===== */
+.accounts-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.accounts-option:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.accounts-option-icon {
+  font-size: 18px;
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+.accounts-option span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #e5e7eb;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .accounts {
+    width: 280px;
+    right: 20px;
+    top: 50px;
+  }
+}

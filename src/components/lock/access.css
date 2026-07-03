@@ -1,0 +1,77 @@
+.access{
+  width: 350px;
+  top: 50px;
+  height: 440px;
+  position: absolute;
+  background-color: rgb(31, 30, 30);
+  z-index: 100;
+  border-radius: 10px;
+  right: 30px;
+}
+.access-restriction{
+  margin: 10px;
+}
+.header-div{
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.header-div span{
+  margin-right: 100px;
+}
+.outer-access{
+    position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;          
+  height: 100vh;   
+  background-color: rgba(0, 0, 0, 0.5);  
+  z-index: 999;
+}
+.body-div-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.body-div-head span{
+  margin-left: 15px;
+}
+.description{
+  font-size: 11px;
+  margin-left: 30px;
+}
+.body-div{
+  color: white;
+  margin-top: 20px;
+  padding: 3px;
+  border-radius: 7px;
+}
+.body-div:hover{
+  background-color: rgb(54, 54, 54);
+  cursor: pointer;
+}
+.x:hover{
+  cursor: pointer;
+}
+.toggle-background{
+  width: 50px;
+  height: 20px;
+  border-radius: 20px;
+  background-color: rgb(61, 61, 61);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.toggle-background.active{
+  background-color: rgb(5, 110, 110);
+}
+.toggle-wheel{
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: blue;
+
+}
+.toggle-background.active .toggle-wheel{
+  transform: translateX(30px);
+}

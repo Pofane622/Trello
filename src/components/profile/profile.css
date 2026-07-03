@@ -1,0 +1,126 @@
+.profile-card {
+  width: 280px;
+  max-height: 350px;
+  background-color: transparent;
+  border-radius: 12px;
+  position: absolute;
+  z-index: 300;
+  right: 80px;
+  top: 60px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.profile-insider {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.top-profile {
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.profile-avatar {
+  position: absolute;
+  bottom: -30px;
+  left: 16px;
+  width: 60px;
+  height: 60px;
+  background-color: #2d2d3a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.2s;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-close:hover {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.profile-x-icon {
+  cursor: pointer;
+}
+
+.lower-profile {
+  width: 100%;
+  background-color: rgb(46, 46, 46);
+  color: white;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  padding: 20px 16px 16px 16px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 16px;
+  margin-top: 8px;
+}
+
+.user-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+}
+
+.user-username {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.profile-action-item {
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.profile-action-item:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.profile-action-item p {
+  margin: 0;
+  font-size: 14px;
+  color: #e5e7eb;
+}
+.outer-profile{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;          
+  height: 100vh;         
+  background-color: rgba(0, 0, 0, 0.5);  
+  z-index: 999;
+}

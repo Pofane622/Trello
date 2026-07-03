@@ -1,0 +1,134 @@
+.navigation-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 44px;
+  background-color: #1c1c1c;
+  padding: 0 16px;
+  color: #b0b0b0;
+}
+
+.left-nav-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+}
+
+.middle-nav-bar {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 500px;
+  margin: 0 20px;
+}
+
+.right-nav-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.trello-logo {
+  height: 28px;
+  width: 28px;
+  border-radius: 4px;
+}
+
+.logo-name {
+  font-weight: 700;
+  color: white;
+  font-size: 18px;
+  letter-spacing: -0.3px;
+}
+
+.more-icon {
+  color: #9ca3af;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.more-icon:hover {
+  color: white;
+}
+
+.search-bar {
+  flex: 1;
+  height: 30px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+  padding-left: 12px;
+  padding-right: 8px;
+  outline: none;
+  font-size: 13px;
+  min-width: 100px;
+}
+
+.search-bar::placeholder {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.search-bar:focus {
+  border-color: #3b82f6;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.search-wrapper .search-icon {
+  position: absolute;
+  left: 10px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.search-wrapper .search-bar {
+  padding-left: 34px;
+}
+
+.create-button {
+  height: 30px;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  background-color: #00b4b4;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+  margin-left: 10px;
+}
+
+.create-btn:hover {
+  background-color: #00d4d4;
+}
+
+.icons {
+  color: #9ca3af;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.icons:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+.right-text {
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 500;
+  margin-right: 4px;
+}

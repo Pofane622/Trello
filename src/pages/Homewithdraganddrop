@@ -1,0 +1,524 @@
+import React, { useState } from 'react'
+import './home.css'
+import { CgProfile } from 'react-icons/cg'
+import { MdFilterList } from 'react-icons/md';
+import { FaRegStar } from 'react-icons/fa';
+import { MdLockOutline } from 'react-icons/md';
+import { HiDotsHorizontal } from 'react-icons/hi'
+import { VscCollapseAll } from 'react-icons/vsc';
+import { TbArrowsDoubleSwNe } from 'react-icons/tb';
+import { ListForm } from '../components/ListForm';
+import { CardAddition } from '../components/CardAddition';
+import { MenuForm } from '../components/menu-form/MenuForm';
+import { Views } from '../components/views/Views';
+import { Profile } from '../components/profile/Profile';
+import { Access } from '../components/lock/Access';
+import { MenuSettings } from '../components/menu-settings/MenuSettings';
+import { Table } from '../components/table-view/Table';
+import { MdEdit } from 'react-icons/md';
+import { Edit } from '../components/edit-icon/Edit';
+import { useDraggable, useDroppable, Overlay } from 'snapdrag'
+
+export function Home({ onSelectBackground, activeBoardId, boards, setBoards, setActiveBoardId }) {
+
+  // ===== STATE =====
+  const [addList, setAddList] = useState(false)
+  const [collapsedLists, setCollapsedLists] = useState([])
+  const [openProfile, setOpenProfile] = useState(false)
+  const [openMenuSettings, setOpenMenuSettings] = useState(false)
+  const [openLock, setOpenLock] = useState(false)
+  const [openMenuID, setOpenMenuID] = useState(null)
+  const [openViews, setOpenViews] = useState(false)
+  const [activeListId, setActiveListId] = useState(null)
+  const [currentView, setCurrentView] = useState("Board")
+  const [openEditID, setOpenEditID] = useState(null)
+
+  // ===== DERIVED DATA =====
+  const activeBoard = boards.find(board => board.id === activeBoardId)
+  const currentLists = activeBoard ? activeBoard.lists : []
+
+  // ===== DRAG AND DROP - CARD FUNCTIONS =====
+
+  function handleCardDrop(droppedData, targetListId) {
+    const { id: cardId, listId: sourceListId } = droppedData
+    
+    // Find the source list
+    const sourceList = currentLists.find(list => list.id === sourceListId)
+    if (!sourceList) return
+    
+    // Find the card to move
+    const cardToMove = sourceList.cards.find(card => card.id === cardId)
+    if (!cardToMove) return
+
+    // Don't do anything if dropped in the same list
+    if (sourceListId === targetListId) return
+
+    // Update the boards state
+    const updatedBoards = boards.map(board => {
+      if (board.id === activeBoardId) {
+        const updatedLists = board.lists.map(list => {
+          // Remove from source list
+          if (list.id === sourceListId) {
+            return {
+              ...list,
+              cards: list.cards.filter(card => card.id !== cardId)
+            }
+          }
+          // Add to destination list
+          if (list.id === targetListId) {
+            return {
+              ...list,
+              cards: [...list.cards, cardToMove]
+            }
+          }
+          return list
+        })
+        return { ...board, lists: updatedLists }
+      }
+      return board
+    })
+    
+    setBoards(updatedBoards)
+  }
+
+  // ===== DRAG AND DROP - LIST FUNCTIONS =====
+
+  function handleListDrop(droppedData, targetListId) {
+    const { id: sourceListId } = droppedData
+    if (sourceListId === targetListId) return
+
+    const currentIndex = currentLists.findIndex(list => list.id === sourceListId)
+    const targetIndex = currentLists.findIndex(list => list.id === targetListId)
+    
+    if (currentIndex === -1 || targetIndex === -1) return
+
+    const updatedLists = [...currentLists]
+    const [movedList] = updatedLists.splice(currentIndex, 1)
+    updatedLists.splice(targetIndex, 0, movedList)
+
+    const updatedBoards = boards.map(board => {
+      if (board.id === activeBoardId) {
+        return { ...board, lists: updatedLists }
+      }
+      return board
+    })
+    
+    setBoards(updatedBoards)
+  }
+
+  // ===== DRAGGABLE CARD COMPONENT =====
+
+  function DraggableCard({ card, listId, onEdit }) {
+    const { draggable } = useDraggable({
+      kind: 'CARD',
+      data: { 
+        id: card.id, 
+        title: card.title,
+        listId: listId 
+      },
+      move: true,
+    })
+
+    return draggable(
+      <div className='todo' key={card.id}>
+        <p className='todo-item'>{card.title}</p>
+        <div className='card-actions'>
+          <MdEdit size={16} className='edit-btn' onClick={() => onEdit(card.id)} />
+        </div>
+      </div>
+    )
+  }
+
+  // ===== DRAGGABLE LIST COMPONENT =====
+
+  function DraggableList({ list, children }) {
+    const { draggable } = useDraggable({
+      kind: 'LIST',
+      data: { id: list.id, name: list.name },
+      move: true,
+    })
+
+    const { droppable } = useDroppable({
+      accepts: 'CARD',
+      onDrop({ data }) {
+        handleCardDrop(data, list.id)
+      },
+    })
+
+    // List drop target for list reordering
+    const { droppable: listDrop } = useDroppable({
+      accepts: 'LIST',
+      onDrop({ data }) {
+        handleListDrop(data, list.id)
+      },
+    })
+
+    const isCollapsed = collapsedLists.includes(list.id)
+
+    return listDrop(
+      droppable(
+        draggable(
+          <div 
+            key={list.id} 
+            className='list-card' 
+            style={{ backgroundColor: list.color || "#111214" }}
+          >
+            <div className='header-section'>
+              <span className='card-name'>{list.name}</span>
+              <div className='card-icons'>
+                <span className='card-in-icons'>{list.cards.length}</span>
+                <VscCollapseAll 
+                  className='card-in-icons' 
+                  size={20} 
+                  onClick={() => listToCollapse(list.id)} 
+                />
+                <HiDotsHorizontal 
+                  className='card-in-icons' 
+                  size={20} 
+                  onClick={() => setOpenMenuID(list.id)} 
+                />
+              </div>
+              {openMenuID === list.id && (
+                <MenuForm 
+                  onClose={closeMenu} 
+                  listID={list.id} 
+                  onColorChange={updateColorChange} 
+                  onCopyList={copyList} 
+                  onMoveList={moveListRight} 
+                  onMoveAllCards={moveAllCards}
+                  boards={boards} 
+                  activeBoardId={activeBoardId} 
+                />
+              )}
+            </div>
+
+            {!isCollapsed && (
+              <>
+                <div className='todo-container'>
+                  {children}
+                </div>
+                <div className='lower-section'>
+                  <button className='add-todo-btn' onClick={() => setActiveListId(list.id)}>
+                    + Add a card
+                  </button>
+                  {activeListId === list.id && (
+                    <CardAddition 
+                      onClose={closeCardForm} 
+                      onAdd={(cardTitle) => addCardToList(list.id, cardTitle)} 
+                    />
+                  )}
+                  <TbArrowsDoubleSwNe className='template-icon' />
+                </div>
+              </>
+            )}
+          </div>
+        )
+      )
+    )
+  }
+
+  // ===== EXISTING FUNCTIONS =====
+
+  function updateCard(updatedCard) {
+    const updatedBoards = boards.map((board) => {
+      if (board.id === activeBoardId) {
+        const updatedLists = board.lists.map((list) => {
+          const updatedCards = list.cards.map((card) => {
+            if (card.id === updatedCard.id) {
+              return updatedCard
+            }
+            return card
+          })
+          return { ...list, cards: updatedCards }
+        })
+        return { ...board, lists: updatedLists }
+      }
+      return board
+    })
+    setBoards(updatedBoards)
+  }
+
+  function deleteCard(cardId) {
+    const updatedBoards = boards.map(board => {
+      if (board.id === activeBoardId) {
+        const updatedLists = board.lists.map(list => {
+          const filteredCards = list.cards.filter(card => card.id !== cardId)
+          return { ...list, cards: filteredCards }
+        })
+        return { ...board, lists: updatedLists }
+      }
+      return board
+    })
+    setBoards(updatedBoards)
+  }
+
+  function closeEdit() {
+    setOpenEditID(null)
+  }
+
+  function turnBoardView() {
+    setCurrentView("Board")
+  }
+
+  function switchBoards(boardID) {
+    setActiveBoardId(boardID)
+  }
+
+  function closeMenu() {
+    setOpenMenuID(null)
+  }
+
+  function closeLock() {
+    setOpenLock(false)
+  }
+
+  function closeViews() {
+    setOpenViews(false)
+  }
+
+  function closeMenuSettings() {
+    setOpenMenuSettings(false)
+  }
+
+  function closeCardForm() {
+    setActiveListId(null)
+  }
+
+  function closeProfile() {
+    setOpenProfile(false)
+  }
+
+  function closeList() {
+    setAddList(false)
+  }
+
+  function listToCollapse(listID) {
+    if (collapsedLists.includes(listID)) {
+      setCollapsedLists(collapsedLists.filter(id => id !== listID))
+    } else {
+      setCollapsedLists([...collapsedLists, listID])
+    }
+  }
+
+  function copyList(listId) {
+    const updatedBoards = boards.map(board => {
+      if (board.id === activeBoardId) {
+        const listToCopy = board.lists.find(list => list.id === listId)
+        if (!listToCopy) return board
+
+        const copiedCards = listToCopy.cards.map(card => ({
+          id: Date.now() + Math.random(),
+          title: card.title
+        }))
+
+        const newList = {
+          id: Date.now(),
+          name: listToCopy.name + " (copy)",
+          cards: copiedCards,
+          color: listToCopy.color
+        }
+
+        return {
+          ...board,
+          lists: [...board.lists, newList]
+        }
+      }
+      return board
+    })
+
+    setBoards(updatedBoards)
+    setOpenMenuID(null)
+  }
+
+  function updateColorChange(listId, newColor) {
+    const updatedBoards = boards.map(board => {
+      if (board.id === activeBoardId) {
+        const updatedLists = board.lists.map(list => {
+          if (list.id === listId) {
+            return { ...list, color: newColor }
+          }
+          return list
+        })
+        return { ...board, lists: updatedLists }
+      }
+      return board
+    })
+    setBoards(updatedBoards)
+  }
+
+  function addCardToList(listId, cardTitle) {
+    const updatedBoards = boards.map(board => {
+      if (board.id === activeBoardId) {
+        const updatedLists = board.lists.map(list => {
+          if (list.id === listId) {
+            const newCard = {
+              id: Date.now(),
+              title: cardTitle,
+            }
+            return {
+              ...list,
+              cards: [...list.cards, newCard]
+            }
+          }
+          return list
+        })
+        return {
+          ...board,
+          lists: updatedLists
+        }
+      }
+      return board
+    })
+    setBoards(updatedBoards)
+  }
+
+  function moveListRight(listId) {
+    const updatedBoards = boards.map(board => {
+      if (board.id === activeBoardId) {
+        const currentIndex = board.lists.findIndex(list => list.id === listId)
+        if (currentIndex === -1 || currentIndex === board.lists.length - 1) {
+          return board
+        }
+        const updatedLists = [...board.lists]
+        const listToMove = updatedLists.splice(currentIndex, 1)[0]
+        updatedLists.splice(currentIndex + 1, 0, listToMove)
+        return {
+          ...board,
+          lists: updatedLists
+        }
+      }
+      return board
+    })
+    setBoards(updatedBoards)
+    setOpenMenuID(null)
+  }
+
+  function moveAllCards(sourceListId, destinationListId) {
+    if (sourceListId === destinationListId) return
+
+    const updatedBoards = boards.map(board => {
+      if (board.id === activeBoardId) {
+        const sourceList = board.lists.find(list => list.id === sourceListId)
+        const destinationList = board.lists.find(list => list.id === destinationListId)
+        if (!sourceList || !destinationList) return board
+
+        const updatedLists = board.lists.map(list => {
+          if (list.id === sourceListId) {
+            return { ...list, cards: [] }
+          }
+          if (list.id === destinationListId) {
+            return {
+              ...list,
+              cards: [...list.cards, ...sourceList.cards]
+            }
+          }
+          return list
+        })
+        return {
+          ...board,
+          lists: updatedLists
+        }
+      }
+      return board
+    })
+    setBoards(updatedBoards)
+    setOpenMenuID(null)
+  }
+
+  // ===== RENDER =====
+
+  return (
+    <div className='entire-screen'>
+      {/* Navigation */}
+      <div className='navigations'>
+        <div className='left-navigation'>
+          <span className='title'>My trello board</span>
+          <select 
+            onChange={(e) => switchBoards(Number(e.target.value))} 
+            value={activeBoardId} 
+            className='select'
+          >
+            {boards.map(board => (
+              <option key={board.id} value={board.id}>{board.name}</option>
+            ))}
+          </select>
+          <button className='views-btn' onClick={() => setOpenViews(true)}>Views</button>
+          {openViews && (
+            <Views 
+              onClose={closeViews} 
+              boards={boards} 
+              turnBoardView={turnBoardView} 
+              setCurrentView={setCurrentView} 
+            />
+          )}
+        </div>
+        <div className='rigt-navigation'>
+          <CgProfile className='Icon' size={20} onClick={() => setOpenProfile(true)} />
+          {openProfile && <Profile onClose={closeProfile} />}
+          <MdFilterList className='Icon' size={20} />
+          <FaRegStar className='Icon' size={20} />
+          <MdLockOutline className='Icon' size={20} onClick={() => setOpenLock(true)} />
+          {openLock && <Access onClose={closeLock} />}
+          <HiDotsHorizontal className='Icon-more' size={20} onClick={() => setOpenMenuSettings(true)} />
+          {openMenuSettings && (
+            <MenuSettings 
+              onClose={closeMenuSettings} 
+              onSelect={onSelectBackground} 
+            />
+          )}
+        </div>
+      </div>
+
+      {/* Board Body */}
+      <div className='board-body'>
+        {currentView === "Board" ? (
+          currentLists.map((list) => (
+            <DraggableList key={list.id} list={list}>
+              {list.cards.map((card) => (
+                <DraggableCard
+                  key={card.id}
+                  card={card}
+                  listId={list.id}
+                  onEdit={() => setOpenEditID(card.id)}
+                />
+              ))}
+            </DraggableList>
+          ))
+        ) : (
+          <Table 
+            currentLists={currentLists} 
+            boards={boards} 
+            turnBoardView={turnBoardView} 
+          />
+        )}
+
+        <div>
+          <button className='add-list-btn' onClick={() => setAddList(true)}>
+            + Add another list
+          </button>
+          {addList && (
+            <ListForm 
+              onClose={closeList} 
+              boards={boards} 
+              setBoards={setBoards} 
+              activeBoardId={activeBoardId} 
+            />
+          )}
+        </div>
+      </div>
+
+      {/* Edit Modal */}
+      {openEditID && (
+        <Edit 
+          onClose={closeEdit} 
+          onSave={updateCard} 
+          onDelete={deleteCard} 
+          card={currentLists.flatMap(list => list.cards).find(card => card.id === openEditID)} 
+        />
+      )}
+
+      {/* Snapdrag Overlay */}
+      <Overlay />
+    </div>
+  )
+}

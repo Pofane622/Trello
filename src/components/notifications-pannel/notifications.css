@@ -1,0 +1,123 @@
+/* ===== CONTAINER ===== */
+.notifications {
+  background-color: rgb(41, 41, 41);
+  position: absolute;
+  top: 50px;
+  right: 80px;
+  width: 320px;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  z-index: 300;
+  overflow: hidden;
+}
+
+.inner-notifications {
+  margin: 12px 16px 16px 16px;
+}
+
+/* ===== HEADER ===== */
+.notifications-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 12px;
+}
+
+.notifications-header span {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.notifications-close {
+  cursor: pointer;
+  color: #9ca3af;
+  transition: color 0.2s;
+}
+
+.notifications-close:hover {
+  color: #ffffff;
+}
+
+/* ===== FILTER TOGGLE ===== */
+.notifications-filter {
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 16px;
+}
+
+.filter-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter-toggle span {
+  font-size: 13px;
+  font-weight: 500;
+  color: #d1d5db;
+}
+
+/* Filter Switch (Small Toggle) */
+.filter-switch {
+  width: 36px;
+  height: 20px;
+  background-color: #4b5563;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.filter-switch.active {
+  background-color: #3b82f6;
+}
+.outer-notifications{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;          
+  height: 100vh;         
+  background-color: rgba(0, 0, 0, 0.5);  
+  z-index: 999;
+}
+.filter-thumb {
+  width: 14px;
+  height: 14px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.filter-switch.active .filter-thumb {
+  transform: translateX(16px);
+}
+
+/* ===== EMPTY STATE ===== */
+.notifications-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0 20px 0;
+}
+
+.notifications-empty span {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .notifications {
+    width: 280px;
+    right: 20px;
+    top: 50px;
+  }
+}
