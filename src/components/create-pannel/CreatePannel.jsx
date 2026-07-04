@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import './createpannel.css'
 import { MdClose } from 'react-icons/md'
 import { FaRobot } from 'react-icons/fa'
-import { FiPlus } from 'react-icons/fi'
-import { HiOutlineViewGrid } from 'react-icons/hi'
 import { BsLayoutThreeColumns } from 'react-icons/bs'
 import { CreateBoard } from '../create-board/CreateBoard'
 

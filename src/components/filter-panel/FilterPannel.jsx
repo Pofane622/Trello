@@ -4,16 +4,6 @@ import { FiSearch } from 'react-icons/fi'
 
 export function FilterPannel({ onClose, setCompletedCardIDs, completedCardIDs, markedComplete, setMarkedComplete, notMarkedComplete, setNotMarkedComplete }) {
 
-  function getFilteredCards(cards){
-    return cards.filter((card)=>{
-      const isCompleted = completedCardIDs.includes(card.id)
-      if (markedComplete && !isCompleted) return false
-      if (notMarkedComplete && isCompleted) return false
-
-      return true
-    })
-  }
-
   return (
     <div className='outer-filter' onClick={onClose}>
     <div className='filter' onClick={(e)=>{e.stopPropagation()}}>

@@ -34,12 +34,54 @@ export function Help({ onClose }) {
 
         {/* Footer Links */}
         <div className='help-footer'>
-          <a href='#' className='help-link'>Pricing</a>
-          <a href='#' className='help-link'>Apps</a>
-          <a href='#' className='help-link'>Blog</a>
-          <a href='#' className='help-link'>Privacy.</a>
-          <a href='#' className='help-link'>Notice at Collection</a>
-          <a href='#' className='help-link'>More...</a>
+<a 
+  href='https://trello.com/pricing' 
+  className='help-link'
+  target='_blank'
+  rel='noopener noreferrer'
+>
+  Pricing
+</a>
+<a 
+  href='https://trello.com/apps' 
+  className='help-link'
+  target='_blank'
+  rel='noopener noreferrer'
+>
+  Apps
+</a>
+<a 
+  href='https://blog.trello.com/' 
+  className='help-link'
+  target='_blank'
+  rel='noopener noreferrer'
+>
+  Blog
+</a>
+<a 
+  href='https://trello.com/privacy' 
+  className='help-link'
+  target='_blank'
+  rel='noopener noreferrer'
+>
+  Privacy.
+</a>
+<a 
+  href='https://trello.com/privacy#notice-at-collection' 
+  className='help-link'
+  target='_blank'
+  rel='noopener noreferrer'
+>
+  Notice at Collection
+</a>
+<a 
+  href='https://trello.com/about' 
+  className='help-link'
+  target='_blank'
+  rel='noopener noreferrer'
+>
+  More...
+</a>
         </div>
 
       </div>
