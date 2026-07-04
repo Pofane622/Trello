@@ -19,7 +19,7 @@ Features
 - LocalStorage persistence
 - Fully responsive
 
-React, React Router, Context API, CSS, LocalStorage
+React, React Router, CSS, LocalStorage
 
 Installation
 
